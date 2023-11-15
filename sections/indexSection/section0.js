@@ -4,24 +4,39 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function Section0() {
-  const [background, setBackground] = useState();
+  let [background, setBackground] = useState("");
   const imgLoadOut = imgSection;
   let slideCount = 0;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      imgLoader();
+      if (imgLoadOut !== undefined) {
+        if (imgLoadOut.images !== undefined) {
+          if (slideCount < 0) {
+            slideCount = imgLoadOut.images.length - 1;
+          } else if (slideCount == imgLoadOut.images.length) {
+            slideCount = 0;
+          }
+          setBackground((count) => (count = r));
+          let r = imgLoadOut.images[slideCount];
+          console.log(r);
+        } else {
+          console.log("error getting .images does not exist");
+        }
+      } else {
+        console.log("error getting imgLoadOut does not exist");
+      }
+
       slideCount++;
-    }, 1000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <section className="h-screen w-full bg-gradient-to-r from-slate-400 via-slate-700 to-black text-[#ffe9e9]">
-      {imgLoader(imgLoadOut, slideCount)}
       <img
         className="absolute w-full opacity-20 h-full"
-        src="https://img.freepik.com/free-photo/young-african-american-woman-smiling-texting-smart-phone-generated-by-ai_188544-20001.jpg?t=st=1699222642~exp=1699226242~hmac=e85171658b31dad54f0be66f4f4ef2cee5232b873dad0abfb9c9e0e0b1e3adf9&w=1060"
+        src={background}
         alt=""
       />
       <div className="h-full w-full grid grid-cols-2 relative z-20">
@@ -54,7 +69,7 @@ export default function Section0() {
                 height="1"
               >
                 <image
-                  href="https://img.freepik.com/free-photo/young-african-american-woman-smiling-texting-smart-phone-generated-by-ai_188544-20001.jpg?t=st=1699222642~exp=1699226242~hmac=e85171658b31dad54f0be66f4f4ef2cee5232b873dad0abfb9c9e0e0b1e3adf9&w=1060"
+                  href={background}
                   x="0"
                   y="0"
                   width="1"
@@ -81,27 +96,12 @@ export default function Section0() {
   );
 }
 // ----------------------------------------------------------------
-const imgLoader = (imgLoadOut, slideCount) => {
-  if (imgLoadOut !== undefined) {
-    if (imgLoadOut.images !== undefined) {
-      if (slideCount < 0) {
-        slideCount = imgLoadOut.images.length - 1;
-      } else if (slideCount == imgLoadOut.images.length) {
-        slideCount = 0;
-      }
-      let r = imgLoadOut.images[slideCount];
-      console.log(r);
-      slideCount++;
-      console.log(slideCount);
-      return <h1>{r}</h1>;
-    } else {
-      console.log("error getting .images does not exist");
-    }
-  } else {
-    console.log("error getting imgLoadOut does not exist");
-  }
-};
+
 // ----------------------------------------------------------------
 const imgSection = {
-  images: ["cat", "dog"],
+  images: [
+    "/img/woman-smiling-texting-smart-phone-generated-by-ai.jpg",
+    "/img/using-digital-tablet-generative-ai-two-inventive-businesspeople.jpg",
+    "/img/kids-with-vr-glasses-abstract-futuristic-school-classroom.jpg",
+  ],
 };
