@@ -1,9 +1,9 @@
 "use client";
-import { Elsie } from "next/font/google";
+
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-export default function Section0() {
+export default function MainSection() {
   let [background, setBackground] = useState("");
   const imgLoadOut = imgSection;
   let slideCount = 0;
@@ -17,8 +17,9 @@ export default function Section0() {
           } else if (slideCount == imgLoadOut.images.length) {
             slideCount = 0;
           }
-          setBackground((count) => (count = r));
           let r = imgLoadOut.images[slideCount];
+          setBackground((count) => (count = r));
+
           console.log(r);
         } else {
           console.log("error getting .images does not exist");
